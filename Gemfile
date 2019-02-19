@@ -27,6 +27,7 @@ gem 'nokogiri'
 
 # Slack Bot
 gem 'slack-ruby-client'
+gem 'mattermost-api4-ruby'
 
 # Scheduler
 gem 'whenever', require: false

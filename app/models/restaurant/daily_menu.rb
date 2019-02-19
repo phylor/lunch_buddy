@@ -17,12 +17,19 @@ module Restaurant
         end
         message << ':blank:'
 
-        slack_client.post_message(message)
+        channel_id = slack_client.get_channel_by_name(slack_client.get_teams.first['id'], 'lunchbuddy')['id']
+        slack_client.create_post({
+          channel_id: channel_id,
+          message: message
+        })
       end
     end
 
     def self.slack_client
-      @client ||= SlackClient.new
+      #@client ||= SlackClient.new
+      @client ||= Mattermost.new_client('https://talk.myclimate.org').tap do |client|
+        client.login('serge.haenni@myclimate.org', ENV['TALK_PASSWORD'])
+      end
     end
   end
 end
